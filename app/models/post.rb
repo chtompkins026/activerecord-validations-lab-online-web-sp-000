@@ -6,8 +6,17 @@ class Post < ActiveRecord::Base
   validate :clickbait?
 
 
+private
 
+  CLICKBAIT = ["Won't Believe", "Secret", "Top", "Guess"]
 
+  def clickbait?
+    unless title == nil
+      if CLICKBAIT.none?{|bait| title.include?(bait)}
+        errors.add(:title, "not suffiently clickbait-y")
+      end
+    end
+  end
 
 
 end
